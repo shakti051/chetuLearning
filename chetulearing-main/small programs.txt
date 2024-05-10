@@ -1,0 +1,390 @@
+https://yashodgayashan.medium.com/flutter-dropdown-button-widget-469794c886d0
+https://blog.logrocket.com/creating-dropdown-list-flutter/
+https://abbreviations.yourdictionary.com/articles/state-abbrev.html
+https://stackoverflow.com/questions/68013459/how-to-use-multiple-tab-for-single-page-in-flutter (Single button tab)
+https://stackoverflow.com/questions/50736571/when-i-select-a-textfield-the-keyboard-moves-over-it
+https://www.youtube.com/watch?v=YVaFoCiQ2SI // set flutter sdk path on MAC
+https://www.youtube.com/watch?v=QmVY5Vmtr4k  // API using Getx Flutter
+https://github.com/KnowledgeCenterYoutube/LeetCode
+https://www.youtube.com/watch?v=2SGvlFpIiTU // add internet permission Getx 
+https://www.freecodespot.com/blog/crud-in-flutter-using-firebase/
+https://github.com/geekyshow1/flutter_fb_auth_emailpass (email auth firebase flutter)
+https://blog.logrocket.com/securing-local-storage-flutter/ (secure storage)
+https://github.com/himanshusharma89/secure-storage (secure storage)
+https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-a-repository-for-your-site // make url from github
+
+shortcut for vscode
+https://codewithandrea.com/articles/vscode-shortcuts-extensions-settings-flutter-development/?utm_source=Newsletter&utm_medium=email&utm_campaign=vscode-shortcuts-extensions-settings-flutter-development
+flutter Animation
+https://medium.com/google-developer-experts/animations-in-flutter-9761c23eb0f1
+
+API using Dio
+https://dhruvnakum.xyz/networking-in-flutter-dio
+https://blog.logrocket.com/networking-flutter-using-dio/
+https://medium.com/dreamwod-tech/flutter-dio-framework-best-practices-668985fc75b7
+https://towardsdev.com/dio-package-in-flutter-http-requests-and-interceptors-2c3d6ef3e9a3
+https://codingwithdhrumil.com/2021/02/dio-flutter-rest-api-example.html
+
+
+Set flutter sdk path
+step 1:- echo $SHELL
+step 2:- update path
+         chsh -s /bin/zsh
+         touch .zshrc
+step 3:- $HOME/.zshrc	
+
+
+1. Sending array list in API dart
+
+ List<Map<String, String>> friendGroup = [];
+ for (var item in personID) {
+ friendGroup.add({'friendId': item});
+ }
+ print(friendGroup);
+
+	
+1. Stream Demo
+
+Stream<int> dataStream() async*{
+ for(int i=1;i<=5;i++){
+   debugPrint("SENDING data ${i.toString()}");
+   await Future.delayed(const Duration(seconds: 1));
+   }
+}
+
+void main(List<String> args) async {
+ Stream<int> stream = dataStream();
+ stream.listen((event){
+   debugPrint("RECEIVE DATA ${event.toString()}");
+ });
+}
+
+3. search logic in texfield
+   	 List<Data> yourListFiltered = [];
+
+  void filterUserList(String value) {
+    yourListFiltered.clear();
+    if (value.isEmpty) {
+      yourListFiltered .addAll(listFromApi);
+    } else {
+      for (var item in listFromApi) {
+        if (item.userName!.toLowerCase().contains(value.toLowerCase()) ||
+            item.mobileNumber!.toLowerCase().contains(value.toLowerCase())) {
+          yourListFiltered.add(item);
+        }
+      }
+    }
+    update();
+  }	 
+
+2. Silvers in flutter 
+//https://www.geeksforgeeks.org/flutter-silverappbar-widget/
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const title = 'GeeksforGeeks';
+
+    return MaterialApp(
+      home: Scaffold(
+          body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            snap: true,
+            pinned: true,
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: const Text(title,
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 16.0) //TextStyle
+                    ), //Text
+                background: Image.network(
+                  "https://i.ibb.co/QpWGK5j/Geeksfor-Geeks.png",
+                  fit: BoxFit.cover,
+                ) //Images.network
+                ), //FlexibleSpaceBar
+            expandedHeight: 230,
+            backgroundColor: Colors.greenAccent[400],
+            leading: IconButton(
+              icon: const Icon(Icons.menu),
+              tooltip: 'Menu',
+              onPressed: () {},
+            ), //IconButton
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.comment),
+                tooltip: 'Comment Icon',
+                onPressed: () {},
+              ), //IconButton
+              IconButton(
+                icon: const Icon(Icons.settings),
+                tooltip: 'Setting Icon',
+                onPressed: () {},
+              ), //IconButton
+            ], //<Widget>[]
+          ), //SliverAppBar
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => ListTile(
+                tileColor: (index % 2 == 0) ? Colors.white : Colors.pink[50],
+                title: Center(
+                  child: Text('$index',
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 50,
+                          color: Colors.greenAccent[400]) //TextStyle
+                      ), //Text
+                ), //Center
+              ), //ListTile
+              childCount: 51,
+            ), //SliverChildBuildDelegate
+          ) //SliverList
+        ], //<Widget>[]
+      ) //CustonScrollView
+          ), //Scaffold
+      debugShowCheckedModeBanner: false,
+      // Remove debug banner for proper
+      // view of setting icon
+    ); //MaterialApp
+  }
+}
+
+2. Text Demo
+
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Text Field Focus',
+      home: MyCustomForm(),
+    );
+  }
+}
+
+// Define a custom Form widget.
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({Key? key}) : super(key: key);
+
+  @override
+  _MyCustomFormState createState() => _MyCustomFormState();
+}
+
+// Define a corresponding State class.
+// This class holds data related to the form.
+class _MyCustomFormState extends State<MyCustomForm> {
+  // Define the focus node. To manage the lifecycle, create the FocusNode in
+  // the initState method, and clean it up in the dispose method.
+  late FocusNode myFocusNode;
+  // Initialise outside the build method
+  FocusNode nodeOne = FocusNode();
+  FocusNode nodeTwo = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Do this inside the build method
+              TextField(
+                focusNode: nodeOne,
+                textCapitalization: TextCapitalization.characters,
+                textAlign: TextAlign.center,
+                cursorColor: Colors.red,
+                cursorRadius: Radius.circular(16.0),
+                cursorWidth: 16.0,
+                maxLines: null,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(nodeTwo),
+              ),
+              TextField(
+                focusNode: nodeTwo,
+                decoration: const InputDecoration(helperText: "Hello"),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  FocusScope.of(context).requestFocus(nodeTwo);
+                },
+                child: Text("Next Field"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+3. Form validation 
+
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Text Field Focus',
+      home: TextSubmitWidget(),
+    );
+  }
+}
+
+class TextSubmitWidget extends StatefulWidget {
+  const TextSubmitWidget({
+    Key? key,
+  }) : super(key: key);
+  // final ValueChanged<String> onSubmit;
+
+  @override
+  State<TextSubmitWidget> createState() => _TextSubmitWidgetState();
+}
+
+class _TextSubmitWidgetState extends State<TextSubmitWidget> {
+  final _formKey = GlobalKey<FormState>();
+  // declare a variable to keep track of the input text
+  String _name = '';
+
+  void _submit() {
+    // validate all the form fields
+    if (_formKey.currentState!.validate()) {
+      // on success, notify the parent widget
+      // widget.onSubmit(_name);
+      print("object");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // build a Form widget using the _formKey created above.
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: const InputDecoration(
+                labelText: 'Enter your name',
+              ),
+              // use the validator to return an error string (or null) based on the input text
+              validator: (text) {
+                if (text == null || text.isEmpty) {
+                  return 'Can\'t be empty';
+                }
+                if (text.length < 4) {
+                  return 'Too short';
+                }
+                return null;
+              },
+              // update the state variable when the text changes
+              onChanged: (text) => setState(() => _name = text),
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              // only enable the button if the text is not empty
+              onPressed: _name.isNotEmpty ? _submit : null,
+              child: Text(
+                'Submit',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+4.Gridview expand n colapse code 
+
+class MyApp extends StatelessWidget {
+ 
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Flutter GridView Demo"),
+          backgroundColor: Colors.red,
+        ),
+        body: Container(
+          padding: EdgeInsets.all(12.0),
+          child: GridView(
+              shrinkWrap: true,
+              children: List.generate(
+                  7,
+                  (index) => Container(
+                      padding: const EdgeInsets.all(10),
+                      color: Colors.blueAccent,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Icon(Icons.settings, color: Colors.white),
+                              Text('Operation',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal))
+                            ],
+                          ),
+                          const Expanded(
+                            child: Text('00',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    fontSize: 24, color: Colors.white)),
+                          )
+                        ],
+                      ))),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  childAspectRatio: 3 / 2,
+                  mainAxisSpacing: 5.0,
+                  crossAxisSpacing: 5.0,
+                  mainAxisExtent: 80,
+                  maxCrossAxisExtent: 300)),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
