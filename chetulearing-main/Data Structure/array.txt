@@ -3698,3 +3698,67 @@ public class RemoveElement {
         return arr[ n - k];
     }
 //Time Complexity: O(N log N)
+
+
+26. sort arrays of 0's,1's and 2's
+
+public static void main(String[] args) {
+        int arr[] = { 0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1 };
+        int low =0,mid =0,high = arr.length-1;
+         int temp = 0;
+        while (mid <= high) {
+         switch (arr[mid]){
+             case 0:{
+                 swap(arr,low,mid);
+                 low++;
+                 mid++;
+             break;
+             }
+             case 1:{
+                 mid++;
+                 break;
+             }
+             case 2: {
+                 swap(arr,mid,high);
+                 high--;
+                 break;
+             }
+         }
+
+        }
+        System.out.println(Arrays.toString(arr));
+    }
+    public static void swap(int[] arr,int i,int j){
+        int temp = arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+
+27. Maximum sub array sum and also print the array
+
+	public static void main(String[] args) {
+        int [] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int maxi = Integer.MIN_VALUE;
+        int sum = 0;
+        int start =0;
+        int ansStart = -1,ansEnd = -1;
+
+        for(int i=0;i<arr.length;i++){
+            if(sum==0) start=i;
+            sum+= arr[i];
+
+            if(sum>maxi) {
+                maxi = sum;
+                ansStart=start;
+                ansEnd= i;
+            }
+            if(sum<0)
+                sum =0;
+        }
+        for (int i= ansStart;i<=ansEnd;i++)
+            System.out.print(arr[i]+" ");
+            System.out.println();
+        System.out.println(maxi);
+    }
+
+
