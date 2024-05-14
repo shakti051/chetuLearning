@@ -1192,3 +1192,17 @@ public String removeOuterParentheses(String s) {
         }
     return sb.toString();    
     }
+
+17 reverse words in a string
+
+	public String reverseWords(String s) {
+        s= s.trim();
+        String[] words = s.split("\\s+");
+        String result = "";
+        for(int i=words.length-1;i>=0;i--){
+         result +=words[i]+" ";                                   
+        }
+        result = result.trim();
+      return result;
+    }
+
