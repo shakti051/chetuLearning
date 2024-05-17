@@ -3728,6 +3728,7 @@ public static void main(String[] args) {
         }
         System.out.println(Arrays.toString(arr));
     }
+
     public static void swap(int[] arr,int i,int j){
         int temp = arr[i];
         arr[i]=arr[j];
@@ -3789,3 +3790,431 @@ public static void main(String[] args) {
         // return new int[] {};
 
     }
+
+29.  Best Time to Buy and Sell Stock
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+	public int maxProfit(int[] arr) {                
+         int maxPro = 0;
+         int minPrice = Integer.MAX_VALUE;
+         for(int i=0;i<arr.length;i++){
+            minPrice = Math.min(minPrice,arr[i]);
+            maxPro = Math.max(maxPro,arr[i]-minPrice);
+         }
+        // for (int i = 0; i < arr.length; i++) {
+        //     for (int j = i + 1; j < arr.length; j++) {
+        //         if (arr[j] > arr[i]) {
+        //             maxPro = Math.max(arr[j] - arr[i], maxPro);
+        //         }
+        //     }
+        // }
+         return maxPro;
+    }
+
+30. Check if array is sorted 
+
+static boolean isSorted(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        if (arr[j] < arr[i])
+          return false;
+      }
+    }
+
+    return true;
+  }
+
+31. check if array is sorted optimal approach
+
+   static boolean isSorted(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+      if (arr[i] < arr[i - 1])
+        return false;
+    }
+
+    return true;
+  }
+
+32. Remove duplicates from the array:- 
+Broth force approach
+
+public static void main(String[] args) {
+        int arr[] = {1,1,2,2,2,3,3};
+        HashSet<Integer> set = new HashSet<>();
+    for (int i=0;i<arr.length;i++){
+        set.add(arr[i]);
+    }
+    int k = set.size();
+     int j=0;
+     for (int x:set)
+         arr[j++]= x;
+
+     for (int i=0;i<k;i++){
+         System.out.print(arr[i]+" ");
+     }
+    }
+
+Time complexity: O(n*log(n))+O(n)
+
+Space Complexity: O(n) 
+
+Optimal approach:- 
+
+	public static void main(String[] args) {
+        int arr[] = {1,1,2,2,2,3,3};
+        int i=0;
+        for(int j=1;j<arr.length;j++){
+            if(arr[i]!=arr[j]){
+                i++;
+                arr[i]=arr[j];
+            }
+        }
+        int k = i+1;
+        for (int j=0;j<k;j++){
+            System.out.print(arr[j]+" ");
+        }
+    }
+
+Time Complexity: O(n), as we iterate through the array only once.
+
+Space Complexity: O(1) as no extra space is used
+
+33. Left Rotate the Array by One:
+Left Rotate the Array by One
+
+	public static void main(String[] args) {
+        int arr[]= {1,2,3,4,5};
+        int n= arr.length;
+        int temp= arr[0];
+        for (int i=0;i<n-1;i++){
+            arr[i]=arr[i+1];
+        }
+        arr[n-1]=temp;
+        System.out.println(Arrays.toString(arr));
+    }
+
+Time Complexity: O(n), as we iterate through the array only once.
+
+Space Complexity: O(1) as no extra space is used
+
+34. Missing number:- 
+Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+
+	public int missingNumber(int[] arr) {
+        int n = arr.length;
+        int sum = (n * (n + 1)) / 2;
+
+        //Summation of all array elements:
+        int sum_arr = 0;
+        for (int i = 0; i < n; i++) {
+            sum_arr += arr[i];
+        }
+
+        int missingNum = sum - sum_arr;
+        return missingNum;
+    }
+
+35. Max Consecutive Ones:- Given a binary array nums, return the maximum number of consecutive 1's in the array.
+
+	public int findMaxConsecutiveOnes(int[] nums) {
+        int count=0;
+        int maxCount =0;
+        for(int i : nums){
+                if(i==1)
+                count++;
+                else count=0;
+            maxCount= Math.max(maxCount,count);    
+        }
+        return maxCount;
+    }
+
+
+36. Single Number:- Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+	public int singleNumber(int[] nums) {
+        int result =0;
+        for(int i : nums){
+            result = result^i;
+        }
+        return result;
+    }
+
+37. Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
+
+The union of two arrays can be defined as the common and distinct elements in the two arrays.NOTE: Elements in the union should be in ascending order.  
+
+static ArrayList<Integer> FindUnion(int arr1[], int arr2[], int n, int m) {
+  HashSet <Integer> s=new HashSet<>();
+  ArrayList < Integer > Union=new ArrayList<>();
+  for (int i = 0; i < n; i++)
+    s.add(arr1[i]);
+  for (int i = 0; i < m; i++)
+    s.add(arr2[i]);
+  for (int it: s)
+    Union.add(it);
+  return Union;
+}
+
+
+
+39. Given an array and a sum k, we need to print the length of the longest subarray that sums to k.
+
+	public static int getLongestSubarray(int []a, long k) {
+        int n = a.length; // size of the array.
+
+        int len = 0;
+        for (int i = 0; i < n; i++) { // starting index
+            long s = 0; // Sum variable
+            for (int j = i; j < n; j++) { // ending index
+                // add the current element to
+                // the subarray a[i...j-1]:
+                s += a[j];
+
+                if (s == k)
+                    len = Math.max(len, j - i + 1);
+            }
+        }
+        return len;
+    }
+
+40. Count first and last occurance of element in array
+
+ArrayList<Integer> find(int arr[], int n, int x)
+    {
+        // code here
+        int first = -1;
+        int last = -1;
+        int m = arr.length;
+        ArrayList<Integer> result = new ArrayList<>(); 
+           for(int i=0;i<m;i++){
+            if(arr[i]>x)
+            break;
+            if(arr[i]==x && first == -1){
+                first = i;
+            } 
+            if(arr[i]==x ){
+             last = i;   
+            }
+            
+        }
+        
+        result.add(first);
+        result.add(last);
+        
+        return result;
+    }
+
+Time complexity :- o(n)
+Space complexity :- o(1)
+
+we are not using any extra space;
+
+41. Binary Search:- Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+      public int search(int[] nums, int target) {
+      int n = nums.length;
+      int low = 0;
+      int high = n-1;
+      while(low<=high){
+        int mid = (low+high)/2;
+         if(nums[mid]== target) return mid;
+         else if(target> nums[mid]) low = mid+1;
+         else high = mid-1;          
+      }
+      return -1;   
+
+    }
+
+42.Find Floor:- Given a sorted array and a value x, the floor of x is the largest element in the array smaller than or equal to x. Write efficient functions to find the floor of x
+
+   static int findFloor(long arr[], int n, long x)
+    {  
+        if (x >= arr[n - 1])
+            return n - 1;
+            
+        for (int i = 0; i < n; i++) {
+            if (arr[i] > x) {
+                // lower bound found:
+                return (i-1);
+            }
+            
+        }
+        
+         return -1;
+        
+    }
+
+Time complexity :- O(n)
+
+Find floor with Binary search :- 
+
+static int findFloor(long arr[], int n, long x)
+    {  
+        int low = 0, high = n - 1;
+        int ans = 0;
+          if (x < arr[0])
+            return -1;
+        // If last element is smaller than x
+        if (x >= arr[high])
+            return high;
+
+            
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] > x) {
+                ans = mid-1;
+                //look for smaller index on the left
+                high = mid - 1;
+            } else {
+                low = mid + 1; // look on the right
+            }
+        }
+        return ans;
+    }
+
+Time complexity :- log(n)
+space complexity :- o(1)
+
+43. Find lower bound :- 
+The lower bound algorithm finds the first or the smallest index in a sorted array where the value at that 
+index is greater than or equal to a given key i.e. x.
+Bruth force approach:- 
+
+	public static int lowerBound(int []arr, int n, int x) {
+        for (int i = 0; i < n; i++) {
+            if (arr[i] >= x) {
+                // lower bound found:
+                return i;
+            }
+        }
+        return n;
+    }
+
+Binary search approach:- 
+
+	public static int lowerBound(int []arr, int n, int x) {
+        int low = 0, high = n - 1;
+        int ans = n;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] >= x) {
+                ans = mid;
+                //look for smaller index on the left
+                high = mid - 1;
+            } else {
+                low = mid + 1; // look on the right
+            }
+        }
+        return ans;
+    }
+
+
+Time complexity :- log(n)
+space complexity :- O(1)
+
+
+44. Find upper bound :- 
+The upper bound algorithm finds the first or the smallest index in a sorted array 
+where the value at that index is greater than the given key i.e. x.
+
+Bruth force approach :- 
+
+	public static int upperBound(int[] arr, int x, int n) {
+        for (int i = 0; i < n; i++) {
+            if (arr[i] > x) {
+                // upper bound found:
+                return i;
+            }
+        }
+        return n;
+    }
+
+Time Complexity: O(N), where N = size of the given array.
+Space Complexity: O(1) as we are using no extra space.
+
+Binary search aproach:-
+
+	public static int upperBound(int[] arr, int x, int n) {
+        int low = 0, high = n - 1;
+        int ans = n;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] > x) {
+                ans = mid;
+                //look for smaller index on the left
+                high = mid - 1;
+            } else {
+                low = mid + 1; // look on the right
+            }
+        }
+        return ans;
+    }
+
+Time Complexity: O(logN), where N = size of the given array.
+
+Space Complexity: O(1) as we are using no extra space.
+
+
+45. Find floor and ceil in array 
+
+Floor of 'x' is the largest element in the array which is smaller than or equal to 'x'.
+Ceiling of 'x' is the smallest element in the array greater than or equal to 'x'.
+
+public class Solution {
+    public static int[] getFloorAndCeil(int[] arr, int n, int x) {
+      // Wriute your code here.
+      
+     int ceil =  findCeil(arr,  n,  x);
+     int  floor = findFloor( arr, n,  x);
+     return new int[]{floor,ceil}; 
+    }
+    private static int findCeil(int[] arr, int n, int x) {
+        int low = 0, high = n - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] >= x) {
+                ans = arr[mid];
+                //look for smaller index on the left
+                high = mid - 1;
+            } else {
+                low = mid + 1; // look on the right
+            }
+        }
+        return ans;
+    }
+
+private static int findFloor(int[] arr, int n, int x) {
+        int low = 0, high = n - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] <= x) {
+                ans = arr[mid];
+                //look for smaller index on the left
+                low = mid + 1;
+            } else {
+                high = mid - 1; // look on the right
+            }
+        }
+        return ans;
+    }
+}
+
+
+Time complexity :- O logN
+Space complexity : O(1)
+
+
