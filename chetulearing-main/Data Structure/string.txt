@@ -1206,3 +1206,238 @@ public String removeOuterParentheses(String s) {
       return result;
     }
 
+18. largest odd number in a string.
+
+Input: num = "52"
+Output: "5"
+
+	public String largestOddNumber(String num) {
+        for(int i = num.length()-1; i>=0;i--){
+            char c = num.charAt(i); // 0 ascii value is 48. odd number having odd ascii and even haing even ascii
+            if(c%2==1){
+                return num.substring(0,i+1);
+            }
+        } 
+        return "";
+    }
+
+
+19. Longest common prefix:-
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+	public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
+        String prefix = strs[0];
+        for(int i=1;i<strs.length;i++){
+                while(strs[i].indexOf(prefix)!=0){
+                    prefix = prefix.substring(0,prefix.length()-1);                      
+                }
+                
+        }
+        return prefix;
+    }
+
+20. Check if two strings are anagrams or not.
+
+	public boolean isAnagram(String s, String t) {
+        char[] str1 = s.toCharArray();
+        char[] str2 = t.toCharArray();
+        Arrays.sort(str1);
+        Arrays.sort(str2);
+        return Arrays.equals(str1,str2);
+    }
+
+21.Rotate string:- Given two strings s and goal, 
+   return true if and only if s can become goal after some number of shifts on s. 
+
+	public boolean rotateString(String s, String goal) {
+        String newS = s + s;
+        if (newS.contains(goal) && s.length() == goal.length() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+22. Isomorphic Strings
+Two strings s and t are isomorphic if the characters in s can be replaced to get t
+
+
+      public boolean isIsomorphic(String s, String t) {
+      Map<Character, Integer> map1 = new HashMap<>();
+         Map<Character, Integer> map2 = new HashMap<>();
+
+     for(Integer i = 0; i <s.length(); i ++) {
+         if(map1.put(s.charAt(i), i) != map2.put(t.charAt(i), i))
+         return false;
+     }
+     return true;  
+    }
+
+23. Reverse only string:- 
+
+char[] str = s.toCharArray();
+        int r = str.length - 1, l = 0;
+ 
+        // Traverse string from both ends until 'l' and 'r'
+        while (l < r) {
+            // Ignore special characters
+            if (!Character.isAlphabetic(str[l]))
+                l++;
+            else if (!Character.isAlphabetic(str[r]))
+                r--;
+ 
+            // Both str[l] and str[r] are not spacial
+            else {
+                char tmp = str[l];
+                str[l] = str[r];
+                str[r] = tmp;
+                l++;
+                r--;
+            }
+        }
+    return new String(str);
+
+
+24. Find frequency of each character in string:- 
+
+public static void main(String[] args) {
+        String str = "ARADHAYA";
+        char[] str_char = str.toCharArray();
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(char ch : str_char){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+//        for (int i=0;i< str_char.length;i++){
+//                if(!map.containsKey(str_char[i])){
+//                    map.put(str_char[i],1);
+//                } else {
+//                    int oldValue = map.get(str_char[i]);
+//                    int newValue = oldValue+1;
+//                    map.put(str_char[i],newValue);
+//                }
+//        }
+        Set<Map.Entry<Character,Integer>> heap = map.entrySet();
+        for (Map.Entry<Character,Integer> data : heap){
+            System.out.print(data.getKey() +" ");
+            System.out.println(data.getValue());
+        }
+	System.out.println(map);
+    }
+
+25. Sort Characters By Frequency:-
+
+Input: s = "tree"
+Output: "eert"
+
+      public String frequencySort(String s) {
+      StringBuilder answer =new StringBuilder();
+      Map<Character,Integer> map = new HashMap<>();
+      for(char ch:s.toCharArray())
+      map.put(ch,map.getOrDefault(ch,0)+1);
+
+      List<Character> list = new ArrayList(map.keySet());
+      list.sort((obj1,obj2)->map.get(obj2)-map.get(obj1));
+      for(char ch :list)
+            for(int i=0;i<map.get(ch);i++)
+            answer.append(ch);       
+
+    return answer.toString();
+}
+
+26. Maximum Nesting Depth of the Parentheses:- 
+Input: s = "(1+(2*3)+((8)/4))+1"
+
+Output: 3
+
+	public int maxDepth(String s) {
+        int ans = 0;
+        int openCount = 0;
+        for(int i=0;i<s.length();i++){
+           if(s.charAt(i)== '(')
+           openCount++;
+           else if(s.charAt(i)== ')')
+           openCount--;
+
+           ans = Math.max(ans,openCount);     
+        }
+        return ans;
+    }
+
+27. Roman to Integer:-
+
+        public int romanToInt(String s) {
+        int n = s.length();
+        HashMap<Character,Integer> map = new HashMap<>();
+        map.put('I',1);
+        map.put('V',5);
+        map.put('X',10);
+        map.put('L',50);
+        map.put('C',100);
+        map.put('D',500);
+        map.put('M',1000);
+
+        int result = map.get(s.charAt(n-1));
+        for(int i = n-2;i>=0;i--){
+            if(map.get(s.charAt(i)) < map.get(s.charAt(i+1)))
+            result -= map.get(s.charAt(i));
+            else result += map.get(s.charAt(i));
+        }
+        return result;
+    }
+
+28. String to Integer (atoi)
+
+public int myAtoi(String s) {
+        if(s==null) return 0;
+
+        s=s.trim();
+        
+        if(s.length()==0) return 0;
+        
+        int sign = +1;
+        long ans = 0;
+        if(s.charAt(0) == '-') sign = -1;
+        
+        int MAX = Integer.MAX_VALUE, MIN = Integer.MIN_VALUE;
+		
+		// initiate the starting pointer
+        int i = (s.charAt(0) == '+' || s.charAt(0) == '-') ? 1 : 0;
+		
+        while(i < s.length()) {
+            if(s.charAt(i) == ' ' || !Character.isDigit(s.charAt(i))) break;
+            ans = ans * 10 + s.charAt(i)-'0';
+            // check the conditions
+            if(sign == -1 && -1*ans < MIN) return MIN;
+            if(sign == 1 && ans > MAX) return MAX;
+            
+            i++;
+        }
+        
+        return (int)(sign*ans);
+    }
+
+29. Longest substring without repeating character
+
+	public int lengthOfLongestSubstring(String str) {
+        int maxLength = 0;
+        int n = str.length();
+        HashMap<Character,Integer> map = new HashMap<>();
+        int left = 0;
+        int right = 0;
+        while(right<n){
+            if(map.containsKey(str.charAt(right)))
+            left = Math.max(map.get(str.charAt(right))+1,left);
+            map.put(str.charAt(right),right);
+            maxLength = Math.max(maxLength,right-left+1);
+            right++;    
+        }
+        return maxLength;
+    }
+
+Time Complexity: O(N) or O(N*logN) depending on which map data structure we are using, where N = size of the array
+Space Complexity: O(N) as we are using a map data structure.
+
+

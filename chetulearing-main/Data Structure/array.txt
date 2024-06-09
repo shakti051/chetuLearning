@@ -4218,3 +4218,530 @@ Time complexity :- O logN
 Space complexity : O(1)
 
 
+46. Find First and Last Position of Element in Sorted Array.
+
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+
+If target is not found in the array, return [-1, -1].
+
+You must write an algorithm with O(log n) runtime complexity.
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int n = nums.length;
+        int first = firstOccur(nums,n,target);
+        if(first == -1)
+        return new int[]{-1,-1};
+        int last = lastOccur(nums,n,target);
+        return new int []{first,last};
+    }
+
+    private static int firstOccur(int[] arr, int n, int x) {
+        int low = 0, high = n - 1;
+        int first = -1;
+        
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] == x) {
+                first = mid;
+                //look for smaller index on the left
+                high = mid - 1;
+            } else if(arr[mid] < x){
+                low = mid +1;    
+            }      
+            else {
+            high = mid - 1; // look on the left
+            }
+        }
+        return first;
+    }
+
+    private static int lastOccur(int[] arr, int n, int x) {
+        int low = 0, high = n - 1;
+        int last = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] == x) {
+                last = mid;
+                //look for large index on the right
+                low = mid + 1;
+            } else if(arr[mid] < x){
+                low = mid +1;    
+            }      
+            else {
+            high = mid - 1; // look on the left
+            }
+        }
+        return last;
+    }
+}
+
+47. Count number of occurance of an element in an array.
+
+Bruth force approach:- 
+
+    int count(int[] arr, int n, int x) {
+        // code here
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+
+            // counting the occurrences:
+            if (arr[i] == x) cnt++;
+        }
+        return cnt;
+    }
+
+Time complexity :- O(n)
+Space complexity:- O(1)
+
+Binary search approach:- 
+
+class Solution {
+    int count(int[] arr, int n, int x) {
+        // code here
+        int first = firstOccurrence(arr, n, x);
+        if (first == -1)
+        return 0;
+        int last = lastOccurrence(arr, n, x);
+        int result = last-first+1;
+        return result;
+    }
+    
+    public static int firstOccurrence(int[] arr, int n, int k) {
+        int low = 0, high = n - 1;
+        int first = -1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] == k) {
+                first = mid;
+                // look for smaller index on the left
+                high = mid - 1;
+            } else if (arr[mid] < k) {
+                low = mid + 1; // look on the right
+            } else {
+                high = mid - 1; // look on the left
+            }
+        }
+        return first;
+    }
+    
+    public static int lastOccurrence(int[] arr, int n, int k) {
+        int low = 0, high = n - 1;
+        int last = -1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // maybe an answer
+            if (arr[mid] == k) {
+                last = mid;
+                // look for larger index on the right
+                low = mid + 1;
+            } else if (arr[mid] < k) {
+                low = mid + 1; // look on the right
+            } else {
+                high = mid - 1; // look on the left
+            }
+        }
+        return last;
+    }
+}
+
+Time Complexity: O(2*logN), where N = size of the given array.
+
+Space Complexity: O(1) as we are using no extra space.
+
+
+48. Search in rotated sorted array:- 
+
+ public int search(int[] arr, int k) {
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == k)
+                return i;
+        }
+        return -1;
+    }
+
+Time Complexity: O(N), N = size of the given array.
+
+Space Complexity: O(1)
+
+Binary search approach:- 
+
+class Solution {
+    public int search(int[] arr, int k) {
+        int n = arr.length;
+        int low = 0, high = n - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            // if mid points to the target
+            if (arr[mid] == k)
+                return mid;
+
+            // if left part is sorted
+            if (arr[low] <= arr[mid]) {
+                if (arr[low] <= k && k <= arr[mid]) {
+                    // element exists
+                    high = mid - 1;
+                } else {
+                    // element does not exist
+                    low = mid + 1;
+                }
+            } else { // if right part is sorted
+                if (arr[mid] <= k && k <= arr[high]) {
+                    // element exists
+                    low = mid + 1;
+                } else {
+                    // element does not exist
+                    high = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+Time Complexity: O(logN), N = size of the given array.
+Space Complexity: O(1)
+
+49. Find min in rotated sorted array
+
+class Solution {
+    public int findMin(int[] arr) {
+        int n = arr.length;
+        int low = 0;
+        int high = n-1;
+        int result = Integer.MAX_VALUE;
+        while(low<=high){
+                int mid = (low+high)/2;
+            
+            if (arr[low]<=arr[high]){
+                result = Math.min(result,arr[low]);
+                break;
+            }
+        if(arr[low]<=arr[mid]){
+               result = Math.min(result,arr[low]); 
+                low = mid+1;
+           }else{
+             result = Math.min(result,arr[mid]);
+           high = mid-1;
+           }
+        }        
+      return result;
+    }
+}
+
+Time Complexity: O(logN), N = size of the given array.
+Space Complexity: O(1)
+
+51. Find out how many times the array has been rotated (sorted array) i.e index of minium value.
+
+class Solution {
+    int findKRotation(int arr[], int n) {
+        
+        int low = 0;
+        int high = n-1;
+        int index = -1;
+        int  minValue = Integer.MAX_VALUE;
+        
+        while(low<=high){
+                int mid = (low+high)/2;
+            
+            if (arr[low]<=arr[high]){
+                if(arr[low]<minValue){
+                index = low;    
+                minValue = arr[low];
+                }
+                break;
+            }
+            
+        if(arr[low]<=arr[mid]){
+               if(arr[low]<minValue){
+                index = low;    
+                minValue = arr[low];
+               }
+               low = mid+1;
+           }else{
+             if(arr[mid]<minValue){
+                index = mid;    
+                minValue = arr[low];
+               }
+           high = mid-1;
+           }
+        }        
+      return index;
+    }
+}
+
+Time Complexity: O(logN), N = size of the given array.
+Space Complexity: O(1)
+
+52. Single Element in a Sorted Array
+
+class Solution {
+    public int singleNonDuplicate(int[] arr) {
+            int n = arr.length; // Size of the array.
+
+        // Edge cases:
+        if (n == 1)
+            return arr[0];
+        if (!(arr[0]==arr[1]))
+            return arr[0];
+        if (!(arr[n - 1]==arr[n - 2]))
+            return arr[n - 1];
+
+        int low = 1, high = n - 2;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            // If arr[mid] is the single element:
+            if (!(arr[mid]==arr[mid + 1]) && !(arr[mid]== arr[mid - 1])) {
+                return arr[mid];
+            }
+
+            // We are in the left:
+            if ((mid % 2 == 1 && arr[mid]==arr[mid - 1])
+                    || (mid % 2 == 0 && arr[mid]==arr[mid + 1])) {
+                // Eliminate the left half:
+                low = mid + 1;
+            }
+            // We are in the right:
+            else {
+                // Eliminate the right half:
+                high = mid - 1;
+            }
+        }
+
+        // Dummy return statement:
+        return -1;    
+    }
+}
+
+53. Find frequency of each element in an array.
+
+	public static void main(String[] args) {
+        int arr[] = {10,5,10,15,10,5};
+        int n = arr.length;
+        HashMap<Integer,Integer>  hashMap = new HashMap<>();
+        for(int i=0;i<n;i++){
+            if(hashMap.containsKey(arr[i])){
+                hashMap.put(arr[i],hashMap.get(arr[i])+1);
+            }else {
+                hashMap.put(arr[i],1);
+            }
+        }
+        for (Map.Entry<Integer,Integer> entry: hashMap.entrySet()){
+        System.out.println(entry.getKey()+"-"+ entry.getValue());
+         }
+    }
+
+Time Complexity: O(N)
+
+Space Complexity: O(n)
+
+54. Find the highest/lowest frequency element.
+
+public static void main(String[] args) {
+
+        int arr[] = {10,5,10,15,10,5,15,15,15};
+        int n = arr.length;
+        HashMap<Integer,Integer> hashMap = new HashMap<>();
+
+        for(int i=0;i<n;i++){
+            if(hashMap.containsKey(arr[i])){
+                hashMap.put(arr[i],hashMap.get(arr[i])+1);
+            }else {
+                hashMap.put(arr[i],1);
+            }
+        }
+        
+        int maxFreq = 0, minFreq = n;
+        int maxEle = 0, minEle = 0;
+        // Traverse through map and find the elements
+        for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+            int count = entry.getValue();
+            int element = entry.getKey();
+
+            if (count > maxFreq) {
+                maxEle = element;
+                maxFreq = count;
+            }
+            if (count < minFreq) {
+                minEle = element;
+                minFreq = count;
+            }
+        }
+
+        System.out.println("The highest frequency element is: " + maxEle);
+        System.out.println("The lowest frequency element is: " + minEle);
+    }
+
+
+Time Complexity: O(N), where N = size of the array. The insertion and retrieval operation in the map takes O(1) time.
+Space Complexity:  O(N), where N = size of the array. It is for the map we are using.
+
+55. Search in rotated sorted array:- 
+
+public boolean search(int[] arr, int k) {
+        int n = arr.length; // size of the array.
+        int low = 0, high = n - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            //if mid points the target
+            if (arr[mid] == k) return true;
+
+            //Edge case:
+            if (arr[low] == arr[mid] && arr[mid] == arr[high]) {
+                low = low + 1;
+                high = high - 1;
+                continue;
+            }
+
+            //if left part is sorted:
+            if (arr[low] <= arr[mid]) {
+                if (arr[low] <= k && k <= arr[mid]) {
+                    //element exists:
+                    high = mid - 1;
+                } else {
+                    //element does not exist:
+                    low = mid + 1;
+                }
+            } else { //if right part is sorted:
+                if (arr[mid] <= k && k <= arr[high]) {
+                    //element exists:
+                    low = mid + 1;
+                } else {
+                    //element does not exist:
+                    high = mid - 1;
+                }
+            }
+        }
+        return false;
+
+    }
+
+
+Time Complexity: O(logN) for the best and average case. O(N/2) for the worst case. Here, N = size of the given array.
+Reason: In the best and average scenarios, the binary search algorithm is primarily utilized and hence the time complexity is O(logN). However, in the worst-case scenario, where all array elements are the same but not the target (e.g., given array = {3, 3, 3, 3, 3, 3, 3}), we continue to reduce the search space by adjusting the low and high pointers until they intersect. This worst-case situation incurs a time complexity of O(N/2).
+
+56. Length of maximum sub array with the target sum and also print the array
+
+ public static void main(String[] args) {
+       int []arr =  { 5, 6, -5, 5, 3, 5, 3, -2, 0 };//8
+        int target = 8;
+        int len = 0;
+
+        int startIndex  = -1;
+        int endIndex = -1;
+
+        for(int i=0;i<arr.length;i++){
+            int sum = 0;
+            for (int j= i;j<arr.length;j++){
+                    sum+=arr[j];
+                    if(sum==target){
+                       int  currentLength = j-i+1;
+                       if(currentLength>len) {
+                           len = currentLength;
+                            startIndex = i;
+                            endIndex = j;
+                       }
+
+                    }
+            }
+        }
+        System.out.println(len);
+        for (int i = startIndex;i<=endIndex;i++)
+            System.out.print(arr[i]+" ");
+    }
+
+
+
+57. Calculate maximum sum of sub array and also print the array
+
+     public static void main(String[] args) {
+      int[]  arr = {-2,1,-3,4,-1,2,1,-5,4};
+        int maxi = Integer.MIN_VALUE;
+        int start = 0;
+        int startIndex = -1;
+        int endIndex = -1;
+        int sum = 0;
+        for(int i=0;i<arr.length;i++){
+            if(sum==0)
+                start = i;
+            sum+= arr[i];
+            if(sum>maxi){
+                startIndex = start;
+                endIndex = i;
+                maxi = sum;
+
+            }
+            if(sum<0)
+                sum=0;
+
+        }
+        System.out.println(maxi);
+        for (int i= startIndex;i<=endIndex;i++)
+            System.out.print(arr[i]+" ");
+    }
+
+58. Count number of Subarray Sum Equals to given target k;
+
+        public int subarraySum(int[] arr, int target) {
+        int n = arr.length; // size of the given array.
+        HashMap<Integer,Integer> map = new HashMap();
+        map.put(0,1);
+        int ans = 0;
+        int sum = 0;
+        for(int i=0;i<n;i++){
+            sum+= arr[i];
+            int removeSum = sum-target;
+            if(map.containsKey(removeSum))
+            ans+= map.get(removeSum);
+            map.put(sum,map.getOrDefault(sum,0)+1);  
+        }    
+    return ans;    
+    }
+
+59. length of longest substring with given sum k. also print the substring
+
+public static void main(String[] args) {
+       int []arr =  { 5, 6, -5, 5, 3, 5, 3, -2, 0 };//8
+        int k = 8;
+        
+        int startIndex  = -1;
+        int endIndex = -1;
+        int maxLength = 0;
+        int sum = 0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int i=0;i<arr.length;i++){
+            sum+=arr[i];
+
+            if(sum==k)
+                maxLength = Math.max(maxLength,i+1);
+
+            int removeSum = sum-k;
+            if(map.containsKey(removeSum)){
+                int  currentLength = i - map.get(removeSum);
+                if(currentLength>maxLength){
+                    maxLength =  Math.max(maxLength,currentLength);
+                    startIndex = map.get(removeSum)+1;
+                    endIndex = i;
+                }
+
+            }
+
+            if(!map.containsKey(sum))
+                map.put(sum,i);
+        }
+        System.out.println(maxLength);
+        for (int i = startIndex;i<=endIndex;i++)
+            System.out.print(arr[i]+" ");
+    }
+
