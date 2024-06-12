@@ -4745,3 +4745,46 @@ public static void main(String[] args) {
             System.out.print(arr[i]+" ");
     }
 
+60.Find second largest element in an array:-
+
+    class Solution {
+    int print2largest(int arr[], int n) {
+        // code here
+    if(n<2)
+	return -1;
+	int large = arr[0];
+	int second_large = arr[1];
+	int i;
+	
+	if(second_large>large)
+	{
+	    int temp = large;
+	    large = second_large;
+	    second_large = temp;
+	}
+	if(large==second_large){
+	    large= Integer.MIN_VALUE;
+	    second_large= Integer.MIN_VALUE;
+	}
+	
+	
+	for (i = 2; i < n; i++)
+	{
+		if (arr[i] > large)
+		{
+			second_large = large;
+			large = arr[i];
+		}
+
+		else if (arr[i] > second_large && arr[i] < large)
+		{
+			second_large = arr[i];
+		}
+	}
+	if(large == second_large || second_large == Integer.MIN_VALUE)
+	return -1;
+	return second_large;
+    }
+}
+
+
