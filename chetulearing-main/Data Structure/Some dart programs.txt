@@ -1,0 +1,48 @@
+1. Print the word with longest length in dart.
+
+void main() {
+     String s = "My name is Shaktijhjhjhn";
+       List<String> str = s.split(" ");
+        String largest = "";
+        for (int i = 0;i<str.length;i++){
+               if(str[i].length > largest.length){
+                 largest = str[i];
+               }
+        }
+       print(largest);
+}
+
+2. Revese words in a string
+
+void main() 
+{
+  String s = "My name is Shakti";
+  List<String> str = s.split(" ");
+  String revString = "";
+  for (int  i = str.length-1; i>=0 ; i--) {
+      revString += str[i]+ " ";
+      }
+  print(revString);
+}
+
+3. Reverse every single word of string
+
+void main() 
+{
+  String s = "My name is Shakti";
+  List<String> str = s.split(" ");
+  String revString = "";
+  for (int  i = 0 ;i<str.length;i++) {
+      String word = str[i];
+      String revWord = "";
+        for(int j = word.length-1;j>=0;j--){
+          revWord = revWord+ word[j];
+        }
+        revString += revWord+" ";
+      }
+  print(revString);
+}
+
+
+
+
