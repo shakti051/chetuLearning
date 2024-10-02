@@ -1466,6 +1466,167 @@ class Solution {
     }   
 }
 
+31. count frequency of each character of string 
 
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		String str = "aabbcdeefrrtghyu";
+		char[] charArr = str.toCharArray();
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(char ch: charArr)
+        map.put(ch,map.getOrDefault(ch,0)+1);
+        System.out.println(map);
+	}
+}
+
+31. count frequency of each character of string in dart
+
+import 'dart:collection';
+
+void main() {
+  String str = "aabbcdddfefghhyuu";
+  var arr = str.split("");
+  HashMap<String,int> map = HashMap();
+  for(var ch in arr){
+    map[ch] = (map[ch]?? 0)+1;
+  }
+  
+  print(map);
+}
+
+32. reverse words in a string
+
+class Solution {
+    public String reverseWords(String s) {
+        s = s.trim();
+        String[] words = s.split("\\s+");
+        String result = "";
+        for(int i = words.length-1;i>=0;i--){
+            result += words[i]+" ";                    
+        }
+        result = result.trim();
+    return result;    
+    }
+}
+
+33. reverse words in a string in dart
+
+void main() {
+  String s = "the sky is blue";
+  s = s.trim();
+  List<String> words = s.split(" ");
+  String result = "";
+  for (int i = words.length - 1; i >= 0; i--) {
+    result += words[i] + " ";
+  }
+  result = result.trim();
+  print(result);
+}
+
+34. Reverse characters of string 
+
+public class ReverseCharacter {
+    public static void main(String[] args) {
+        String str = "Hellow Word";
+        str = str.trim();
+        String[] words = str.split("\\s+");
+        String result = "";
+        for (String word : words ){
+            for(int j = word.length()-1 ; j>=0;j--){
+                result += word.charAt(j);
+            }
+            result = result+" ";
+        }
+        System.out.println(result);
+    }
+}
+
+35. Reverse characters of a string in dart
+
+void main() {
+  String str = "Hellow Word";
+  str = str.trim();
+  List<String> words = str.split(" ");
+  String result = "";
+  for (String word in words) {
+    for (int j = word.length - 1; j >= 0; j--) {
+      result += word[j];
+    }
+    result = result + " ";
+  }
+  print(result);
+}
+
+36. longest common prefix 
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0)
+        return "";
+        String prefix = strs[0];
+        for(int i=1;i<strs.length;i++){
+            while(strs[i].indexOf(prefix)!=0){
+                prefix = prefix.substring(0,prefix.length()-1);
+            }
+        }
+    return prefix;    
+    }
+}
+
+Time Complexity: O(nlogn+m), where n is the number of strings and 
+where m is the length of the longest common prefix (bounded by the length of the shortest string).
+Auxiliary Space: O(1)
+
+37. longest common prefix in dart
+
+void main() {
+  List<String> strs = ["flower","flow","flight"];
+ if (strs.isEmpty) print ("");
+    String prefix = strs[0];
+    for (int i = 1; i < strs.length; i++) {
+      while (strs[i].indexOf(prefix) != 0) {
+        prefix = prefix.substring(0, prefix.length - 1);
+      }
+    }
+    print(prefix);   
+}
+
+38.Find frequency of each character in java
+
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		String str = "aabcdeffgghhhyy";
+		HashMap<Character,Integer> map = new HashMap<>();
+		char[] strChar = str.toCharArray();
+		for(char ch : strChar){
+		    map.put(ch,map.getOrDefault(ch,0)+1);
+		}
+	System.out.println(map);	
+	}
+}
+
+39. find frequency of each character in dart
+
+void main() {
+  String str = "ARADHAYA";
+  Map<String, int> map = Map();
+  for (int i = 0; i < str.length; i++) {
+    if (!map.containsKey(str[i])){
+      map[str[i]] = 1;
+    }
+    else {
+      int oldValue = map[str[i]]!;
+      int newValue = oldValue + 1;
+      map[str[i]] = newValue;
+    }
+  }
+  print(map);
+}
 
 
